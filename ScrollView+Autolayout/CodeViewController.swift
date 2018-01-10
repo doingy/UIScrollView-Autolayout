@@ -35,6 +35,9 @@ final class CodeViewController: UIViewController {
     let container = UIView()
     container.backgroundColor = .yellow
     scrollView.addSubview(container)
+    // 容器设置四边和scrollview间距为0
+    // 容器设置高度和scrollview一致，
+    // 高度未知
     container.snp.makeConstraints { (make) in
       make.edges.equalTo(scrollView)
       make.height.equalTo(height)
@@ -42,7 +45,8 @@ final class CodeViewController: UIViewController {
     
     let boxWidth = 100
     let boxMargin = 10.0
-    for i in 0...10 {
+    let boxCount = 10
+    for i in 0...boxCount {
       let box = UIView()
       box.backgroundColor = .green
       container.addSubview(box)
@@ -50,12 +54,14 @@ final class CodeViewController: UIViewController {
         make.top.height.equalTo(container)
         make.width.equalTo(boxWidth)
         if i == 0 {
+          // *设置容器的左边
           make.left.equalTo(container).offset(boxMargin * 0.5)
         } else {
           let previousBox = container.subviews[i - 1]
           make.left.equalTo(previousBox.snp.right).offset(boxMargin)
         }
-        if i == 10 {
+        if i == boxCount {
+          // *设置容器的右边，即容器的宽度可知
           container.snp.makeConstraints({ (make) in
             make.right.equalTo(box.snp.right).offset(boxMargin * 0.5)
           })
